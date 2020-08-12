@@ -25,6 +25,8 @@ html, body {
   height: 100%;
   margin: 0;
   font-family: Lato,-apple-system,BlinkMacSystemFont,Helvetica,"Segoe UI","Hiragino Sans GB","Noto Sans CJK SC",Arial,Ubuntu,sans-serif,"Apple Color Emoji";
+  background: url('~@/assets/bg-homepage-banner.jpg');
+  background-size: cover;
 }
 
 </style>

@@ -11,7 +11,7 @@
       </a>
     </div>
     <p class="title">TiDB contributors</p>
-    <div id="contributors"></div>
+    <Contributors/>
     <footer>
       <p class="powered">powered by: </p>
       <a href="https://github.com/guojuntang" class="link">TiDB contributors</a>
@@ -20,8 +20,12 @@
 </template>
 
 <script>
+import Contributors from '@/components/contributors'
 export default {
   name: 'Main',
+  components: {
+    Contributors
+  }
 }
 </script>
 
@@ -45,7 +49,7 @@ footer{
   padding:  50px 0;
 }
 .tidb-logo{
-  width: 50%;
+  width: 60%;
 }
 .powered {
   color: rgba(255,255,255,.7);
@@ -62,7 +66,7 @@ footer{
 .title{
   color: white;
   text-align: center;
-  font-size: 4rem;
+  font-size: calc(2rem + 10px);
 }
 
 .brand img{
@@ -71,8 +75,6 @@ footer{
 }
 
 #container{
-  background: url('~@/assets/bg-homepage-banner.jpg');
-  background-size: cover;
   width: inherit;
   height: inherit;
 }
