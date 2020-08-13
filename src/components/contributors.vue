@@ -22,6 +22,7 @@
             :total='total_contributors'
             :page-size='page_size'>
         </el-pagination>
+     <el-backtop ></el-backtop>
     </div>
 </template>
 
@@ -248,6 +249,11 @@ export default {
 </script>
 
 <style>
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 #contributors {
     width: 100%;
     height: auto;
@@ -261,6 +267,7 @@ export default {
     width: 100%;
 }
 .el-row{
+    width: 99%;
     padding-left: 50px;
 } 
 .card-contributors{
@@ -272,6 +279,7 @@ export default {
 .el-card{
     background-color: #3352AD !important;
     color: aliceblue !important;
+    animation: fadein 1s ease-in ;
 }
 .card-contributions{
   text-align: center;
