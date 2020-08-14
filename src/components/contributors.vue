@@ -1,9 +1,10 @@
 <template>
     <div id="contributors">
         <hr>
+        <div class="contributors-list">
             <el-row v-for="(i,j) in 5" :key="i" :index="j" :gutter="10">
     <el-col :xl="5" :lg="5" :md="6" :sm="6" v-for="(o, index) in 4" :key="o" :index="index" :offset="1">
-        <el-card class="card-contributors" :body-style="{ padding: '5px' }">
+        <el-card :class="[card_class,fade_class]" :body-style="{ padding: '5px' }">
         <img :src='data[j*4 + index].avatar_url' class="card-avatar">
         <div style="padding: 20px;">
             <div class="card-name">{{data[j*4 + index].login}}</div>
@@ -16,6 +17,7 @@
         </el-card>
     </el-col>
     </el-row>
+        </div>
         <el-pagination
             background
             layout="prev, pager, next"
@@ -36,11 +38,15 @@ export default {
             total_contributors: 500,
             page_size: 20,
             current_page:1,
-            data: []
+            data: [],
+            card_class: 'card-contributors',
+            fade_class: 'fade-in'
         }
     },
     methods: {
         getData(per_page, page){
+            // fade out animation and loading
+            this.fade_class = 'fade-out'
             const loading = this.$loading({
                 lock: true,
                 text: 'Loading',
@@ -49,12 +55,15 @@ export default {
             });
             getContributorsData(per_page, page)
                 .then(res => {
+                    // update data
                     this.data = res.data
-                    loading.close()
                 }).catch(err => {
                     this.$message.error("Get Data Fail!")
                     console.log(err.stack)
+                }).finally(()=>{
+                    //fade in animation and close loading
                     loading.close()
+                    this.fade_class = 'fade-in'
                 })
         },
         pageChangeHandler(page){
@@ -65,6 +74,7 @@ export default {
         this.getData(this.page_size, this.current_page)
     },
     watch: {
+        // call getData when current_page is changed
         current_page: function(){
             this.getData(this.page_size, this.current_page)
         }
@@ -77,6 +87,10 @@ export default {
 @keyframes fadein {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+@keyframes fadeout {
+    from { opacity: 1; }
+    to { opacity: 0; }
 }
 #contributors {
     width: 100%;
@@ -103,7 +117,12 @@ export default {
 .el-card{
     background-color: #3352AD !important;
     color: aliceblue !important;
-    animation: fadein 1s ease-in ;
+}
+.fade-in{
+    animation: fadein 1.5s ease ;
+}
+.fade-out{
+    animation: fadeout 0.7s ease;
 }
 .card-contributions{
   text-align: center;
