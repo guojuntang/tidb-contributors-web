@@ -1,10 +1,10 @@
 # tidb-contributors
 
 ## 1. 简介
-呈现 [TiDB](https://github.com/pingcap/tidb)的代码贡献者们的github列表
+呈现 [TiDB](https://github.com/pingcap/tidb)的代码贡献者们的github列表\
+[在线演示](https://tidb-contributors-web.vercel.app/) 
 
 ## 2. 后端API
-[在线演示](https://tidb-contributors-web.vercel.app/) \
 数据通过[Github API](https://developer.github.com/v3/)获取，由于没有认证Token的用户只能每小时调用API 60次，因此需要架设一个后端脚本，详情参见这个[Repo](https://github.com/guojuntang/tidb-contributors-api)
 
 ## 3. 部署 
