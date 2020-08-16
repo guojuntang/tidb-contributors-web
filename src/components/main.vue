@@ -14,7 +14,7 @@
     <Contributors/>
     <footer>
       <p class="powered">powered by: </p>
-      <a href="https://github.com/guojuntang/tidb-contributors" class="link">TiDB contributors</a>
+      <a href="https://github.com/guojuntang/tidb-contributors-web" class="link">TiDB contributors</a>
     </footer>
   </div>
 </template>
