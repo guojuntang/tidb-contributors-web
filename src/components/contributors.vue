@@ -1,22 +1,22 @@
 <template>
     <div id="contributors">
         <hr>
-        <div class="contributors-list">
-            <el-row v-for="(i,j) in 5" :key="i" :index="j" :gutter="10">
-    <el-col :xl="5" :lg="5" :md="6" :sm="6" v-for="(o, index) in 4" :key="o" :index="index" :offset="1">
-        <el-card :class="[card_class,fade_class]" :body-style="{ padding: '5px' }">
-        <img :src='data[j*4 + index].avatar_url' class="card-avatar">
-        <div style="padding: 20px;">
-            <div class="card-name">{{data[j*4 + index].login}}</div>
-        <hr>
-            <div class="card-contributions">Commits:{{data[j*4 + index].contributions}} </div>
-            <div class="card-button">
-            <a type="text" :href="data[j*4 + index].html_url" class="button-primary">Github</a>
-            </div>
-        </div>
-        </el-card>
-    </el-col>
-    </el-row>
+        <div class="contributors-list" >
+            <el-row v-for="(row_data, index) in contributors" :key="index" :gutter="10">
+                <el-col v-for="(item, i) in row_data" :key="i" :xl="5" :lg="5" :md="6" :sm="6"  :offset="1" >
+                    <el-card :class="[card_class,fade_class]" :body-style="{ padding: '5px' }">
+                    <img :src='item.avatar_url' class="card-avatar">
+                    <div style="padding: 20px;">
+                        <div class="card-name">{{item.login}}</div>
+                    <hr>
+                        <div class="card-contributions">Commits:{{item.contributions}} </div>
+                        <div class="card-button">
+                        <a type="text" :href="item.html_url" class="button-primary">Github</a>
+                        </div>
+                    </div>
+                    </el-card>
+                </el-col>
+            </el-row>
         </div>
         <el-pagination
             background
@@ -37,14 +37,15 @@ export default {
         return {
             total_contributors: 500,
             page_size: 20,
+            col_count: 4,
             current_page:1,
             data: [],
             card_class: 'card-contributors',
-            fade_class: 'fade-in'
+            fade_class: 'fade-in',
         }
     },
     methods: {
-        getData(per_page, page){
+        getData(per_page, page) {
             // fade out animation and loading
             this.fade_class = 'fade-out'
             const loading = this.$loading({
@@ -72,6 +73,21 @@ export default {
     },
     created(){
         this.getData(this.page_size, this.current_page)
+    },
+    computed: {
+        // convert data into two-dimension array
+        contributors (){
+            let result= []
+            this.data.forEach((item, index) =>{
+                // col_count data in each row
+                const row = Math.floor(index / this.col_count)
+                if (!result[row]){
+                    result[row] = []
+                }
+                result[row].push(item)
+            })
+            return result
+        }
     },
     watch: {
         // call getData when current_page is changed
